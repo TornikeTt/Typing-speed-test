@@ -10,7 +10,7 @@ import { useTestStats } from "./hooks/useTestStats";
 import type { Difficulty, Mode, TestStatus, CharResults } from "./types";
 
 function App() {
-    const [testStatus, setTestStatus] = useState<TestStatus>("finished");
+    const [testStatus, setTestStatus] = useState<TestStatus>("idle");
 
     const [isDifficultyOpen, setIsDifficultyOpen] = useState(false); // for mobile
     const [isModeOpen, setIsModeOpen] = useState(false); // for mobile
