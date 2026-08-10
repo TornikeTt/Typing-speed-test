@@ -9,6 +9,12 @@ import { useState } from "react";
 import { useTestStats } from "./hooks/useTestStats";
 import type { Difficulty, Mode, TestStatus, CharResults } from "./types";
 
+// TO DO
+/*
+    1. For mobile the keyboard is don't shown to stratyin typing
+    2. Frontmentor suggestion not show good qulity
+*/
+
 function App() {
     const [testStatus, setTestStatus] = useState<TestStatus>("idle");
 
@@ -42,10 +48,10 @@ function App() {
             >
                 <Header
                     testStatus={testStatus}
-                    isDifficultyOpen={isDifficultyOpen} //
-                    setIsDifficultyOpen={setIsDifficultyOpen} //
-                    isModeOpen={isModeOpen} //
-                    setIsModeOpen={setIsModeOpen} //
+                    isDifficultyOpen={isDifficultyOpen}
+                    setIsDifficultyOpen={setIsDifficultyOpen}
+                    isModeOpen={isModeOpen}
+                    setIsModeOpen={setIsModeOpen}
                     selectedDifficulty={selectedDifficulty}
                     setSelectedDifficulty={setSelectedDifficulty}
                     selectedMode={selectedMode}
@@ -60,8 +66,8 @@ function App() {
                     <>
                         <Main
                             testStatus={testStatus}
-                            setIsDifficultyOpen={setIsDifficultyOpen} //
-                            setIsModeOpen={setIsModeOpen} //
+                            setIsDifficultyOpen={setIsDifficultyOpen}
+                            setIsModeOpen={setIsModeOpen}
                             setTestStatus={setTestStatus}
                             selectedDifficulty={selectedDifficulty}
                             currentCharIndex={currentCharIndex}
