@@ -35,19 +35,17 @@ export default function Main({
     }, [selectedDifficulty]);
 
     useEffect(() => {
+        if (testStatus === "running") {
+            inputRef.current?.focus();
+        }
+    }, [testStatus]);
+
+    useEffect(() => {
         currentCharRef.current?.scrollIntoView({
             behavior: "smooth",
             block: "center",
         });
     }, [currentCharIndex]);
-
-    // Focus the hidden input whenever the test is running.
-    // This is what makes the mobile on-screen keyboard appear.
-    useEffect(() => {
-        if (testStatus === "running") {
-            inputRef.current?.focus();
-        }
-    }, [testStatus]);
 
     useEffect(() => {
         if (testStatus === "running" && currentCharIndex >= characters.length) {
@@ -91,38 +89,6 @@ export default function Main({
         setCurrentCharIndex((prev) => prev + 1);
     };
 
-    // Fallback for mobile browsers that don't reliably fire keydown
-    // per-character (autocorrect/predictive text can eat individual keys).
-    // We diff the input's value against what we've already recorded.
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-
-        if (value.length > currentCharIndex) {
-            const typedChar = value[value.length - 1];
-            setTypedStatus((prev) => {
-                const copy = [...prev];
-                copy[currentCharIndex] =
-                    typedChar === characters[currentCharIndex]
-                        ? "correct"
-                        : "incorrect";
-                return copy;
-            });
-            setCurrentCharIndex((prev) => prev + 1);
-        } else if (value.length < currentCharIndex) {
-            const newIndex = Math.max(0, currentCharIndex - 1);
-            setCurrentCharIndex(newIndex);
-            setTypedStatus((prev) => {
-                const copy = [...prev];
-                copy[newIndex] = null;
-                return copy;
-            });
-        }
-
-        // Keep the input's own value cleared so length diffing
-        // stays meaningful and it never visibly fills up.
-        e.target.value = "";
-    };
-
     return (
         <div className="relative h-full">
             <div
@@ -131,7 +97,6 @@ export default function Main({
                     "overflow-y-auto py-10",
                     testStatus !== "running" && "blur-xs",
                 )}
-                onClick={() => inputRef.current?.focus()}
             >
                 <div
                     className={clsx(
@@ -165,20 +130,16 @@ export default function Main({
                 </div>
             </div>
 
-            {/* Hidden input — invisible, but focusable, so the OS
-                shows the on-screen keyboard on mobile. */}
             <input
                 ref={inputRef}
                 type="text"
-                inputMode="text"
-                autoCapitalize="off"
-                autoCorrect="off"
                 autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
                 spellCheck={false}
-                value=""
-                onChange={handleChange}
                 onKeyDown={handleKeyDown}
-                className="pointer-events-none absolute h-0 w-0 opacity-0"
+                inputMode="text"
+                className="pointer-events-none absolute inset-0 opacity-0"
                 aria-hidden="true"
             />
 
@@ -189,9 +150,9 @@ export default function Main({
                             setIsDifficultyOpen(false);
                             setIsModeOpen(false);
                             setTestStatus("running");
-                            requestAnimationFrame(() =>
-                                inputRef.current?.focus(),
-                            );
+                            requestAnimationFrame(() => {
+                                inputRef.current?.focus();
+                            });
                         }}
                         className={clsx(
                             "text-neutral-0 cursor-pointer rounded-xl bg-blue-600",

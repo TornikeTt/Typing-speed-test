@@ -11,7 +11,8 @@ import type { Difficulty, Mode, TestStatus, CharResults } from "./types";
 
 // TO DO
 /*
-    1. For mobile the keyboard is don't shown to stratyin typing
+    0. Delete last commit
+    1. Don't work mobile keyboad
     2. Frontmentor suggestion not show good qulity
 */
 
