@@ -9,13 +9,6 @@ import { useState } from "react";
 import { useTestStats } from "./hooks/useTestStats";
 import type { Difficulty, Mode, TestStatus, CharResults } from "./types";
 
-// TO DO
-/*
-    0. Delete last commit
-    1. Don't work mobile keyboad
-    2. Frontmentor suggestion not show good qulity
-*/
-
 function App() {
     const [testStatus, setTestStatus] = useState<TestStatus>("idle");
 
