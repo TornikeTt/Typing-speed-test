@@ -76,7 +76,7 @@ export default function Main({
     const trackRef = useRef<HTMLDivElement | null>(null);
 
     const availableHeight = useAvailableHeight(windowRef);
-    const [isInputFocused, setIsInputFocused] = useState(false);
+    const [_isInputFocused, setIsInputFocused] = useState(false);
 
     // Reset progress whenever a new text is loaded.
     const [typedText, setTypedText] = useState("");
